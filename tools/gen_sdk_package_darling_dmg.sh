@@ -9,6 +9,11 @@
 # darling-dmg will be downloaded and compiled if missing.
 #
 
+set -e
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+CURRENT_DIR=$(pwd)
+
 pushd "${0%/*}/.." &>/dev/null
 source tools/tools.sh
 
@@ -78,7 +83,7 @@ fi
 
 popd &>/dev/null # build dir
 
-TMP=$(mktemp -d /tmp/XXXXXXXXX)
+TEMP_DIR=$(mktemp -d "$CURRENT_DIR/tmp-xcodeapp-XXXXXXXXXXXXXX")
 
 function cleanup() {
   fusermount -u $TMP || true
@@ -88,6 +93,7 @@ function cleanup() {
 trap cleanup EXIT
 
 LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$TARGET_DIR/SDK/tools/lib \
-  $TARGET_DIR/SDK/tools/bin/darling-dmg $1 $TMP
+  $TARGET_DIR/SDK/tools/bin/darling-dmg $1 $TEMP_DIR
 
-XCODEDIR=$TMP ./tools/gen_sdk_package.sh
+cd "$CURRENT_DIR"
+XCODEDIR=$TEMP_DIR "$DIR/do_gen_sdk_package.sh"

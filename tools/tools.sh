@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
 export LC_ALL="C"
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-BASE_DIR=$PWD
+BASE_DIR="$DIR/.."
 
 TARBALL_DIR=$BASE_DIR/tarballs
 BUILD_DIR=$BASE_DIR/build
@@ -60,16 +61,17 @@ fi
 if [[ $SCRIPT != *wrapper/build.sh ]]; then
   # how many concurrent jobs should be used for compiling?
   if [ -z "$JOBS" ]; then
-    JOBS=$(tools/get_cpu_count.sh || echo 1)
+    JOBS=$("$DIR/get_cpu_count.sh" || echo 1)
   fi
 
   if [ $SCRIPT != "build.sh" -a \
        $SCRIPT != "build_clang.sh" -a \
        $SCRIPT != "mount_xcode_image.sh" -a \
        $SCRIPT != "gen_sdk_package_darling_dmg.sh" -a \
-       $SCRIPT != "gen_sdk_package_p7zip.sh" -a \
+       $SCRIPT != "extract_xip.sh" -a \
+       $SCRIPT != "gen_sdk_package_xip.sh" -a \
        $SCRIPT != "gen_cyglto_dll.sh" ]; then
-    res=$(tools/osxcross_conf.sh)
+    res=$("$DIR/osxcross_conf.sh")
 
     if [ $? -ne 0 ]; then
       echo -n "you must run ./build.sh first before you can start "

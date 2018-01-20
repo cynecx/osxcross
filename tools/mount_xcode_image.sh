@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 #
-# Mount a Xcode .dmg (requires root) and run gen_sdk_package.sh.
+# Mount a Xcode .dmg (requires root) and run do_gen_sdk_package.sh.
 #
 # Works up to Xcode 4.2
 #
@@ -64,9 +64,9 @@ echo ""
 echo "mounted the xcode image to: $TMP/mnt"
 echo ""
 echo "now run (not as root):"
-echo "XCODEDIR=$TMP/mnt ./tools/gen_sdk_package.sh"
+echo "XCODEDIR=$TMP/mnt ./tools/do_gen_sdk_package.sh"
 echo ""
-echo "once you are done with gen_sdk_package.sh, run:"
+echo "once you are done with do_gen_sdk_package.sh, run:"
 echo "umount -l $TMP/mnt && rm -rf $TMP"
 echo ""
 
