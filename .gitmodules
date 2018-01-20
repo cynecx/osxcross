@@ -1,0 +1,6 @@
+[submodule "tools/utils/xar"]
+	path = tools/utils/xar
+	url = https://github.com/mackyle/xar
+[submodule "tools/utils/pbzx"]
+	path = tools/utils/pbzx
+	url = https://github.com/cor3ntin/pbzx
