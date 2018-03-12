@@ -34,8 +34,9 @@ require fusermount
 if [ ! -f "$TARGET_DIR/SDK/tools/bin/xar" ]; then
 
     pushd "$DIR"/utils/xar/xar
-    autoconf
+    ./autogen.sh
     ./configure --prefix "$TARGET_DIR/SDK/tools" --enable-static
+    make
     make install
     git clean -df
     popd
